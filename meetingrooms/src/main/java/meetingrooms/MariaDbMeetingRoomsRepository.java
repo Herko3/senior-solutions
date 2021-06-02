@@ -4,6 +4,7 @@ import org.flywaydb.core.Flyway;
 import org.mariadb.jdbc.MariaDbDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -47,36 +48,40 @@ public class MariaDbMeetingRoomsRepository implements MeetingRoomsRepository {
 
     @Override
     public List<String> meetingRoomsEverySecond() {
-        return jdbcTemplate.query("SET @inc = 1; SELECT * FROM (SELECT name,@inc:=1-@inc autoinc FROM meetingrooms ORDER BY name) sorted WHERE autoinc = 1",
+        return jdbcTemplate.query("SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY name) RowNum, name FROM meetingrooms) AS sorted WHERE (sorted.RowNum % 2) = 0",
                 (rs, i) -> rs.getString("name"));
     }
 
     @Override
     public List<MeetingRoom> meetingRoomsByArea() {
         return jdbcTemplate.query("SELECT * FROM meetingrooms ORDER BY width*length DESC",
-                (rs, i) -> new MeetingRoom(rs.getLong("id"), rs.getString("name"), rs.getInt("width"), rs.getInt("length")));
+                (rs, i) -> getMeetingRoomFromRow(rs));
     }
 
     @Override
     public MeetingRoom exactSearch(String name) {
-        return jdbcTemplate.query("SELECT * FROM meetingrooms WHERE name = ?", new Object[]{name},
-                (rs, i) -> new MeetingRoom(rs.getLong("id"), rs.getString("name"), rs.getInt("width"), rs.getInt("length"))).get(0);
+        return jdbcTemplate.queryForObject("SELECT * FROM meetingrooms WHERE name = ?", new Object[]{name},
+                (rs, i) -> getMeetingRoomFromRow(rs));
     }
 
     @Override
     public List<MeetingRoom> partSearch(String part) {
         return jdbcTemplate.query("SELECT * FROM meetingrooms WHERE name LIKE ? ORDER BY name", new Object[]{"%" + part + "%"},
-                (rs, i) -> new MeetingRoom(rs.getLong("id"), rs.getString("name"), rs.getInt("width"), rs.getInt("length")));
+                (rs, i) -> getMeetingRoomFromRow(rs));
     }
 
     @Override
     public List<MeetingRoom> searchByArea(int area) {
         return jdbcTemplate.query("SELECT * FROM meetingrooms WHERE width*length > ? ORDER BY name", new Object[]{area},
-                (rs, i) -> new MeetingRoom(rs.getLong("id"), rs.getString("name"), rs.getInt("width"), rs.getInt("length")));
+                (rs, i) -> getMeetingRoomFromRow(rs));
     }
 
     @Override
     public void deleteAll() {
         jdbcTemplate.update("DELETE FROM meetingrooms");
+    }
+
+    private MeetingRoom getMeetingRoomFromRow(ResultSet rs) throws SQLException {
+        return new MeetingRoom(rs.getLong("id"), rs.getString("name"), rs.getInt("width"), rs.getInt("length"));
     }
 }
