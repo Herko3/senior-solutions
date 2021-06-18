@@ -1,0 +1,40 @@
+package locations;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.nio.file.Path;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
+import static org.junit.jupiter.api.Assertions.*;
+
+class LocationServiceTest {
+
+    List<Location> locations;
+
+    @BeforeEach
+    void init(){
+        locations = new LocationService().locationsFromFile(Path.of("src/main/resources/locations.csv"));
+    }
+
+    @Test
+    void testLocationsFromFile(){
+
+
+        assertThat(locations)
+                .hasSize(3)
+                .extracting(Location::getName)
+                .contains("Budapest","London");
+    }
+
+    @Test
+    void filterLocationTest(){
+        assertThat(locations)
+                .filteredOn(e -> e.getName().contains("L"))
+                .extracting(Location::getName,Location::isOnEquator)
+                .containsOnly(tuple("London",false));
+    }
+
+}
