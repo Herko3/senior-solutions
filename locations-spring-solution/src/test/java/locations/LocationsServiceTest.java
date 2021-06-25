@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LocationsServiceTest {
 
-    @Test
-    void testGetLocations(){
-        List<Location> locations = new LocationsService().getLocations();
-        assertThat(locations)
-                .extracting(Location::getName)
-                .contains("Budapest");
-    }
+//    @Test
+//    void testGetLocations(){
+//        List<Location> locations = new LocationsService().getLocations();
+//        assertThat(locations)
+//                .extracting(Location::getName)
+//                .contains("Budapest");
+//    }
 
 }
