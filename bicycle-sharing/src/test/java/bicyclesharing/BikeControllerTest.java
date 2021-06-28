@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +24,7 @@ class BikeControllerTest {
 
     @Test
     void getAllRides() {
-        when(service.getAllRides()).thenReturn(List.of(new BikeDto("1","Biker8",null,0.5)));
+        when(service.getAllRides()).thenReturn(List.of(new BikeDto("1","Biker8", LocalDateTime.of(2021,6,20,10,1,1),0.5)));
 
         List<BikeDto> result = controller.getAllRides();
 
