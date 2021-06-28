@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class BikeDto {
 
     private String bikeId;
-    private String lastRiderId;
+    private String userId;
     private LocalDateTime checkIn;
     private double distance;
 }

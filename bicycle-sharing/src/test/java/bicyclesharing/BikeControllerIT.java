@@ -19,7 +19,8 @@ public class BikeControllerIT {
         List<BikeDto> result = controller.getAllRides();
 
         assertThat(result)
-                .extracting(BikeDto::getLastRiderId)
+                .hasSize(5)
+                .extracting(BikeDto::getUserId)
                 .contains("US336");
     }
 

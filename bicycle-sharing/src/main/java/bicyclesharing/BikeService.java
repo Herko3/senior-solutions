@@ -21,7 +21,7 @@ public class BikeService {
         this.modelMapper = modelMapper;
     }
 
-    public void readFromFile() {
+    private void readFromFile() {
         try {
             List<String> lines = Files.readAllLines(Path.of("src/main/resources/bikes.csv"));
             lines.forEach(this::addRide);
@@ -44,7 +44,7 @@ public class BikeService {
         cache();
 
         return bikes.stream()
-                .map(Bike::getLastRiderId)
+                .map(Bike::getUserId)
                 .distinct()
                 .toList();
     }
@@ -57,12 +57,12 @@ public class BikeService {
 
     private void addRide(String line) {
         String[] parts = line.split(";");
-        String rider1 = parts[0];
-        String rider2 = parts[1];
+        String bikeId = parts[0];
+        String userId = parts[1];
         double distance = Double.parseDouble(parts[3]);
         LocalDateTime date = parseDate(parts[2]);
 
-        bikes.add(new Bike(rider1, rider2, date, distance));
+        bikes.add(new Bike(bikeId, userId, date, distance));
     }
 
     private LocalDateTime parseDate(String s) {
