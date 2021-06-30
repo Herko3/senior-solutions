@@ -38,10 +38,7 @@ public class LocationsService {
     }
 
     public LocationDto findLocationById(long id) {
-        return mapper.map(locations.stream()
-                .filter(l->l.getId() == id)
-                .findAny()
-                .orElseThrow(()->new LocationNotFound("Location not found: " + id)), LocationDto.class);
+        return mapper.map(locationById(id), LocationDto.class);
     }
 
     public LocationDto createLocation(CreateLocationCommand command) {
@@ -51,10 +48,8 @@ public class LocationsService {
     }
 
     public LocationDto updateLocation(long id, UpdateLocationCommand command) {
-        Location location = locations.stream()
-                .filter(l->l.getId()==id)
-                .findFirst()
-                .orElseThrow(()->new LocationNotFound("No location with id: " + id));
+        Location location = locationById(id);
+
         location.setName(command.getName());
         location.setLat(command.getLat());
         location.setLon(command.getLon());
@@ -63,10 +58,7 @@ public class LocationsService {
     }
 
     public void deleteLocation(long id) {
-        Location location = locations.stream()
-                .filter(l->l.getId()==id)
-                .findFirst()
-                .orElseThrow(()->new LocationNotFound("No location with id: " + id));
+        Location location = locationById(id);
 
         locations.remove(location);
     }
@@ -74,5 +66,12 @@ public class LocationsService {
     public void deleteAllLocations(){
         idGenerator = new AtomicLong();
         locations.clear();
+    }
+
+    private Location locationById(long id){
+        return locations.stream()
+                .filter(l->l.getId()==id)
+                .findFirst()
+                .orElseThrow(()->new LocationNotFound("No location with id: " + id));
     }
 }

@@ -76,7 +76,7 @@ public class LocationsController {
     public ResponseEntity<Problem> handleValidException(MethodArgumentNotValidException e){
         List<Violation> violations =
                 e.getBindingResult().getFieldErrors().stream()
-                .map(fe -> new Violation(fe.getField(),fe.getDefaultMessage()))
+                .map(fe -> new Violation(fe.getField(),fe.getDefaultMessage(),fe.getRejectedValue()))
                 .toList();
 
         Problem problem = Problem.builder()

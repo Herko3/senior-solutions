@@ -11,4 +11,5 @@ public class Violation {
 
     private String field;
     private String message;
+    private Object rejectedValue;
 }
