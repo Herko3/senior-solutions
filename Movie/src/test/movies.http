@@ -1,0 +1,28 @@
+###
+GET http://localhost:8080/api/movies
+Accept: application/json
+
+###
+POST http://localhost:8080/api/movies
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Inception",  "length": 120
+}
+
+###
+POST http://localhost:8080/api/movies/2/rating
+Content-Type: application/json
+Accept: application/json
+
+{
+  "rating": 5
+}
+
+###
+DELETE http://localhost:8080/api/movies/2
+
+###
+GET http://localhost:8080/api/movies?title=inc
+Accept: application/json
