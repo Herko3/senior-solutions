@@ -7,11 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LocationDto {
+public class Violation {
 
-    private long id;
-    private String name;
-    private double lat;
-    private double lon;
-
+    private String field;
+    private String message;
 }

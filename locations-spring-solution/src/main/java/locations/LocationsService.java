@@ -70,4 +70,9 @@ public class LocationsService {
 
         locations.remove(location);
     }
+
+    public void deleteAllLocations(){
+        idGenerator = new AtomicLong();
+        locations.clear();
+    }
 }
