@@ -62,29 +62,35 @@ public class MeetingRoomsController {
             case 2 -> System.out.println(service.meetingRoomsReversed());
             case 3 -> System.out.println(service.meetingRoomsEverySecond());
             case 4 -> System.out.println(service.meetingRoomsByArea());
-            case 5 -> {
-                System.out.println("Írja be a keresendő pontos nevet");
-                String name = sc.nextLine();
-                try {
-                    System.out.println(service.exactSearch(name));
-                } catch (IllegalArgumentException | EmptyResultDataAccessException e){
-                    System.out.println("No result with term: " + name);
-                }
-            }
-            case 6 -> {
-                System.out.println("Írja be a keresendő kifejezést");
-                String part = sc.nextLine();
-                System.out.println(service.partSearch(part));
-            }
-            case 7 -> {
-                System.out.println("Írja be a keresendő méretet");
-                int area = Integer.parseInt(sc.nextLine());
-                System.out.println(service.searchByArea(area));
-            }
+            case 5 -> searchByName();
+            case 6 -> searchByNamePart();
+            case 7 -> searchByArea();
             case 8 -> System.exit(0);
             default -> printMenu();
         }
         cont();
+    }
+
+    private void searchByName(){
+            System.out.println("Írja be a keresendő pontos nevet");
+            String name = sc.nextLine();
+            try {
+                System.out.println(service.exactSearch(name));
+            } catch (IllegalArgumentException | EmptyResultDataAccessException e){
+                System.out.println("No result with term: " + name);
+            }
+    }
+
+    private void searchByNamePart(){
+        System.out.println("Írja be a keresendő kifejezést");
+        String part = sc.nextLine();
+        System.out.println(service.partSearch(part));
+    }
+
+    private void searchByArea(){
+        System.out.println("Írja be a keresendő méretet");
+        int area = Integer.parseInt(sc.nextLine());
+        System.out.println(service.searchByArea(area));
     }
 
     private void cont() {

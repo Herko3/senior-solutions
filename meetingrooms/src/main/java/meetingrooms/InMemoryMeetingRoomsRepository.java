@@ -35,13 +35,12 @@ public class InMemoryMeetingRoomsRepository implements MeetingRoomsRepository {
 
     @Override
     public List<String> meetingRoomsEverySecond() {
+        meetingRooms.sort(Comparator.comparing(MeetingRoom::getName, Collator.getInstance(new Locale("hu","HU"))));
+
         return IntStream
                 .range(0, meetingRooms.size())
                 .filter(i -> i % 2 != 0)
-                .mapToObj(i -> {
-                    meetingRooms.sort(Comparator.comparing(MeetingRoom::getName, Collator.getInstance(new Locale("hu","HU"))));
-                    return meetingRooms.get(i);
-                })
+                .mapToObj(meetingRooms::get)
                 .map(MeetingRoom::getName)
                 .collect(Collectors.toList());
     }
