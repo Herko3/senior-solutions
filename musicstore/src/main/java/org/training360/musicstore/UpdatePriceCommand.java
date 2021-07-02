@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.PositiveOrZero;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdatePriceCommand {
 
-    @Min(value = 0, message = "price must be over 0")
+    @PositiveOrZero(message = "price must be positive")
     private long price;
 
 }

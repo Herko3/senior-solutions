@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 
 @Data
 @AllArgsConstructor
@@ -17,6 +18,6 @@ public class CreateInstrumentCommand {
 
     private InstrumentType instrumentType;
 
-    @Min(value = 0, message = "price must be over 0")
+    @PositiveOrZero(message = "price must be positive")
     private long price;
 }
