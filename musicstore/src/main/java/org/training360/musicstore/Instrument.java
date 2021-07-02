@@ -15,5 +15,5 @@ public class Instrument {
     private String brand;
     private InstrumentType instrumentType;
     private long price;
-    private LocalDate PostDate;
+    private LocalDate postDate;
 }
