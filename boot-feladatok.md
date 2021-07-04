@@ -9,8 +9,8 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Build és futtatás Mavennel
 * [X] Build és futtatás Gradle használatával
 * [X] Unit és integrációs tesztek
-* [ ] Developer Tools
-* [ ] Twelve Factor App
+* [X] Developer Tools
+* [X] Twelve Factor App
 * [X] Bevezetés a Docker használatába
 * [X] Java alkalmazások Dockerrel
 * [ ] Docker Layers
