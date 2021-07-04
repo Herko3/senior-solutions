@@ -9,7 +9,7 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Assert
 * [X] Kivételkezelés és timeout tesztelése
 * [X] Egymásba ágyazás
-* [ ] Tagek és metaannotációk használata
+* [X] Tagek és metaannotációk használata
 * [X] Tesztesetek ismétlése
 * [ ] Paraméterezett tesztek
 * [ ] Dinamikus tesztek
