@@ -7,7 +7,7 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Spring Beanek
 * [X] Konfiguráció Javaban
 * [X] Build és futtatás Mavennel
-* [ ] Build és futtatás Gradle használatával
+* [X] Build és futtatás Gradle használatával
 * [X] Unit és integrációs tesztek
 * [ ] Developer Tools
 * [ ] Twelve Factor App
