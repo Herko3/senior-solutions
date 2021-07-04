@@ -13,7 +13,7 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Twelve Factor App
 * [X] Bevezetés a Docker használatába
 * [X] Java alkalmazások Dockerrel
-* [ ] Docker Layers
+* [X] Docker Layers
 * [X] Feltöltés GIT repository-ba
 * [X] REST webszolgáltatások - GET művelet
 * [X] GET műveletek paraméterezése

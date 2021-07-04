@@ -7,6 +7,6 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [ ] 2021.06.08. - Rendelések, streamek gyakorlása (order)
 * [ ] 2021.06.09. - Filmek, streamek gyakorlása (movie)
 * [ ] 2021.06.15. - EB meccsek
-* [X] 2021.06.22. - Hasz�ltautó
+* [X] 2021.06.22. - Használtautó
 * [X] 2021.06.25. - Bicikli sharing
 * [X] 2021.06.29. - Filmek, RESTful webszolgáltatások gyakorlása (movie)
