@@ -14,7 +14,7 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Paraméterezett tesztek
 * [ ] Dinamikus tesztek
 * [ ] Tempdirectory extension
-* [ ] JUnit 4 és 5 használata
+* [X] JUnit 4 és 5 használata
 * [ ] Hamcrest
 * [ ] Saját Hamcrest matcher implementálása
 * [X] AssertJ
