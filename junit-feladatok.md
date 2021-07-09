@@ -13,7 +13,7 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Tesztesetek ismétlése
 * [X] Paraméterezett tesztek
 * [X] Dinamikus tesztek
-* [ ] Tempdirectory extension
+* [X] Tempdirectory extension
 * [X] JUnit 4 és 5 használata
 * [ ] Hamcrest
 * [ ] Saját Hamcrest matcher implementálása
