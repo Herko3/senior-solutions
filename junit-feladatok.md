@@ -11,7 +11,7 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Egymásba ágyazás
 * [X] Tagek és metaannotációk használata
 * [X] Tesztesetek ismétlése
-* [ ] Paraméterezett tesztek
+* [X] Paraméterezett tesztek
 * [ ] Dinamikus tesztek
 * [ ] Tempdirectory extension
 * [ ] JUnit 4 és 5 használata
