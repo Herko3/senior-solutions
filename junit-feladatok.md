@@ -12,7 +12,7 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Tagek és metaannotációk használata
 * [X] Tesztesetek ismétlése
 * [X] Paraméterezett tesztek
-* [ ] Dinamikus tesztek
+* [X] Dinamikus tesztek
 * [ ] Tempdirectory extension
 * [X] JUnit 4 és 5 használata
 * [ ] Hamcrest
