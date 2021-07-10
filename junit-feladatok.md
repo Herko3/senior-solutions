@@ -16,7 +16,7 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Tempdirectory extension
 * [X] JUnit 4 és 5 használata
 * [X] Hamcrest
-* [ ] Saját Hamcrest matcher implementálása
+* [X] Saját Hamcrest matcher implementálása
 * [X] AssertJ
 * [ ] AssertJ kiterjeszthetőség
 * [X] Mockito

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Path;
 import java.util.List;
 
+import static locations.LocationWithCoordinate.locationWithCoordinate;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -28,7 +29,8 @@ public class LocationServiceWithHamcrestTest {
                 ));
 
         assertThat(locations, hasItem(
-                hasProperty("name", startsWith("Lond"))
-        ));
+//                hasProperty("name", startsWith("Lond"))
+                locationWithCoordinate(closeTo(0,0)))
+        );
     }
 }
