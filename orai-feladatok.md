@@ -4,7 +4,7 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 
 * [X] Meeting room feladat, adatbázisba mentéssel, csak egy entitással
 * [ ] Meeting room feladat, adatbázisba mentéssel, csak két entitással (meeting room, meeting)
-* [ ] 2021.06.08. - Rendelések, streamek gyakorlása (order)
+* [X] 2021.06.08. - Rendelések, streamek gyakorlása (order)
 * [ ] 2021.06.09. - Filmek, streamek gyakorlása (movie)
 * [ ] 2021.06.15. - EB meccsek
 * [X] 2021.06.22. - Használtautó
