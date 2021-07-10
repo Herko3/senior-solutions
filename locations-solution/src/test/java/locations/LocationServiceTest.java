@@ -1,5 +1,6 @@
 package locations;
 
+import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +36,15 @@ class LocationServiceTest {
                 .filteredOn(e -> e.getName().contains("L"))
                 .extracting(Location::getName,Location::isOnEquator)
                 .containsOnly(tuple("London",false));
+    }
+
+    @Test
+    void testWithCondition(){
+        Location location = locations.get(1);
+
+        Condition<Location> zeroCoordinate = new Condition<>(l->l.getLat() == 0 || l.getLon() == 0,"has at least one zero coordinate");
+
+        assertThat(location).has(zeroCoordinate);
     }
 
 }

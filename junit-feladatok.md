@@ -18,6 +18,6 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] Hamcrest
 * [X] Saját Hamcrest matcher implementálása
 * [X] AssertJ
-* [ ] AssertJ kiterjeszthetőség
+* [X] AssertJ kiterjeszthetőség
 * [X] Mockito
 * [X] Teszt lefedettség
