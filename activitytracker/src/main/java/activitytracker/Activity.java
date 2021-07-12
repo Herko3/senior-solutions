@@ -20,6 +20,7 @@ public class Activity {
     private String desc;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "activity_type")
     private ActivityType type;
 
     public Activity() {
