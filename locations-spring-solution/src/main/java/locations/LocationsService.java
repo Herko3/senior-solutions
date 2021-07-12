@@ -72,6 +72,6 @@ public class LocationsService {
         return locations.stream()
                 .filter(l->l.getId()==id)
                 .findFirst()
-                .orElseThrow(()->new LocationNotFound("No location with id: " + id));
+                .orElseThrow(()->new LocationNotFound(id));
     }
 }

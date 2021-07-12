@@ -56,40 +56,40 @@ public class LocationsController {
         service.deleteLocation(id);
     }
 
-    @ExceptionHandler(LocationNotFound.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Problem> handleNotFound(LocationNotFound lnf) {
-        Problem problem = Problem.builder()
-                .withType(URI.create("locations/not-found"))
-                .withTitle("Not Found")
-                .withStatus(Status.NOT_FOUND)
-                .withDetail(lnf.getMessage())
-                .build();
-
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-                .body(problem);
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Problem> handleValidException(MethodArgumentNotValidException e){
-        List<Violation> violations =
-                e.getBindingResult().getFieldErrors().stream()
-                .map(fe -> new Violation(fe.getField(),fe.getDefaultMessage(),fe.getRejectedValue()))
-                .toList();
-
-        Problem problem = Problem.builder()
-                .withType(URI.create("locations/not-valid"))
-                .withTitle("Validation Error")
-                .withStatus(Status.BAD_REQUEST)
-                .withDetail(e.getMessage())
-                .with("violations", violations)
-                .build();
-
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-                .body(problem);
-    }
+//    @ExceptionHandler(LocationNotFound.class)
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    public ResponseEntity<Problem> handleNotFound(LocationNotFound lnf) {
+//        Problem problem = Problem.builder()
+//                .withType(URI.create("locations/not-found"))
+//                .withTitle("Not Found")
+//                .withStatus(Status.NOT_FOUND)
+//                .withDetail(lnf.getMessage())
+//                .build();
+//
+//        return ResponseEntity
+//                .status(HttpStatus.NOT_FOUND)
+//                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+//                .body(problem);
+//    }
+//
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public ResponseEntity<Problem> handleValidException(MethodArgumentNotValidException e){
+//        List<Violation> violations =
+//                e.getBindingResult().getFieldErrors().stream()
+//                .map(fe -> new Violation(fe.getField(),fe.getDefaultMessage(),fe.getRejectedValue()))
+//                .toList();
+//
+//        Problem problem = Problem.builder()
+//                .withType(URI.create("locations/not-valid"))
+//                .withTitle("Validation Error")
+//                .withStatus(Status.BAD_REQUEST)
+//                .withDetail(e.getMessage())
+//                .with("violations", violations)
+//                .build();
+//
+//        return ResponseEntity
+//                .status(HttpStatus.BAD_REQUEST)
+//                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+//                .body(problem);
+//    }
 }

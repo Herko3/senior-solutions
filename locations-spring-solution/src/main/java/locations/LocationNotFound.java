@@ -1,8 +1,16 @@
 package locations;
 
-public class LocationNotFound extends IllegalArgumentException{
+import org.zalando.problem.AbstractThrowableProblem;
+import org.zalando.problem.Status;
 
-    public LocationNotFound(String message) {
-        super(message);
+import java.net.URI;
+
+public class LocationNotFound extends AbstractThrowableProblem {
+
+    public LocationNotFound(long id) {
+        super(URI.create("locations/not-found"),
+                "not found",
+                Status.NOT_FOUND,
+                "location not found with id: " + id);
     }
 }
