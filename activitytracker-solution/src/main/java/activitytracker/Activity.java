@@ -12,7 +12,8 @@ public class Activity {
     @TableGenerator(name = "Act_Gen",
             table = "act_id_gen",
             pkColumnName = "id_gen",
-            valueColumnName = "id_val")
+            valueColumnName = "id_val",
+            allocationSize = 100)
     @Id
     @GeneratedValue(generator = "Act_Gen")
     private Long id;
