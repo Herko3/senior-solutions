@@ -28,6 +28,19 @@ public class Activity {
     @Column(name = "activity_type", length = 20, nullable = false)
     private ActivityType type;
 
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void persistTime() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void updateTime(){
+        updatedAt = LocalDateTime.now();
+    }
+
     public Activity() {
     }
 
@@ -36,6 +49,7 @@ public class Activity {
         this.desc = desc;
         this.type = type;
     }
+
 
     public Long getId() {
         return id;

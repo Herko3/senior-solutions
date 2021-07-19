@@ -23,13 +23,25 @@ public class ActivityDao {
 
     public Activity findActivityById(long id) {
         EntityManager em = entityManagerFactory.createEntityManager();
-        return em.find(Activity.class, id);
-
+        Activity activity = em.find(Activity.class, id);
+        em.close();
+        return activity;
     }
 
     public List<Activity> listActivities() {
         EntityManager em = entityManagerFactory.createEntityManager();
-        return em.createQuery("select a from Activity a", Activity.class).getResultList();
+        List<Activity> activities = em.createQuery("select a from Activity a", Activity.class).getResultList();
+        em.close();
+        return activities;
+    }
 
+    public void updateActivity(long id, String desc){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Activity activity = em.find(Activity.class,id);
+        em.getTransaction().begin();
+        activity.setDesc(desc);
+        em.getTransaction().commit();
+
+        em.close();
     }
 }
