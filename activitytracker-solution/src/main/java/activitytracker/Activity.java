@@ -1,10 +1,17 @@
 package activitytracker;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Target;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "activities")
 public class Activity {
@@ -31,6 +38,11 @@ public class Activity {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @ElementCollection
+    @CollectionTable(name = "labels", joinColumns = @JoinColumn(name = "act_id"))
+    @Column(name = "label")
+    private List<String> labels;
+
     @PrePersist
     public void persistTime() {
         createdAt = LocalDateTime.now();
@@ -41,55 +53,9 @@ public class Activity {
         updatedAt = LocalDateTime.now();
     }
 
-    public Activity() {
-    }
-
     public Activity(LocalDateTime startTime, String desc, ActivityType type) {
         this.startTime = startTime;
         this.desc = desc;
         this.type = type;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public ActivityType getType() {
-        return type;
-    }
-
-    public void setType(ActivityType type) {
-        this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "Activity{" +
-                "id=" + id +
-                ", startTime=" + startTime +
-                ", desc='" + desc + '\'' +
-                ", type=" + type +
-                '}';
     }
 }

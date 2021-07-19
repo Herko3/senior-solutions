@@ -58,4 +58,15 @@ public class ActivityServiceTest {
 
         assertEquals("Change desc",loaded.getDesc());
     }
+
+    @Test
+    void testLabels(){
+        Activity activity = new Activity(LocalDateTime.now(), "Biking in the rain", ActivityType.BIKING);
+        activity.setLabels(List.of("Bike","Rain"));
+        activityDao.saveActivity(activity);
+
+        Activity loaded = activityDao.findActivityByIdWithLabels(activity.getId());
+
+        assertEquals(List.of("Bike","Rain"),loaded.getLabels());
+    }
 }
