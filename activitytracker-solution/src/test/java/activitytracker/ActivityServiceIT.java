@@ -5,13 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ActivityServiceTest {
+public class ActivityServiceIT {
 
     ActivityDao activityDao;
 
@@ -48,25 +49,67 @@ public class ActivityServiceTest {
     }
 
     @Test
-    void testUpdateActivity(){
+    void testUpdateActivity() {
         Activity activity = new Activity(LocalDateTime.now(), "Biking in the rain", ActivityType.BIKING);
         activityDao.saveActivity(activity);
 
-        activityDao.updateActivity(activity.getId(),"Change desc");
+        activityDao.updateActivity(activity.getId(), "Change desc");
 
         Activity loaded = activityDao.findActivityById(activity.getId());
 
-        assertEquals("Change desc",loaded.getDesc());
+        assertEquals("Change desc", loaded.getDesc());
     }
 
     @Test
-    void testLabels(){
+    void testLabels() {
         Activity activity = new Activity(LocalDateTime.now(), "Biking in the rain", ActivityType.BIKING);
-        activity.setLabels(List.of("Bike","Rain"));
+        activity.setLabels(List.of("Bike", "Rain"));
         activityDao.saveActivity(activity);
 
         Activity loaded = activityDao.findActivityByIdWithLabels(activity.getId());
 
-        assertEquals(List.of("Bike","Rain"),loaded.getLabels());
+        assertEquals(List.of("Bike", "Rain"), loaded.getLabels());
+    }
+
+    @Test
+    void testAddTrackPoint() {
+        Activity activity = new Activity(LocalDateTime.now(), "Biking in the rain", ActivityType.BIKING);
+        activityDao.saveActivity(activity);
+        activityDao.addTrackPoint(activity.getId(), new TrackPoint(LocalDate.of(2021, 1, 2), 15, 15));
+
+        Activity another = activityDao.findActivityByIdWithTrackPoints(activity.getId());
+
+        assertEquals(1, another.getTrackPoints().size());
+    }
+
+    @Test
+    void testTrackPoint() {
+        TrackPoint tp = new TrackPoint(LocalDate.of(2021, 2, 2), 15, 15);
+        TrackPoint tp2 = new TrackPoint(LocalDate.of(2021, 1, 2), 10, 15);
+
+        Activity activity = new Activity(LocalDateTime.now(), "Biking in the rain", ActivityType.BIKING);
+        activity.addTrackPoint(tp);
+        activity.addTrackPoint(tp2);
+
+        activityDao.saveActivity(activity);
+
+        Activity another = activityDao.findActivityByIdWithTrackPoints(activity.getId());
+
+//        assertEquals(10,another.getTrackPoints().get(0).getLat());
+        assertEquals(15, another.getTrackPoints().get(0).getLat());
+    }
+
+    @Test
+    void testRemove(){
+        TrackPoint tp = new TrackPoint(LocalDate.of(2021, 2, 2), 15, 15);
+        TrackPoint tp2 = new TrackPoint(LocalDate.of(2021, 1, 2), 10, 15);
+
+        Activity activity = new Activity(LocalDateTime.now(), "Biking in the rain", ActivityType.BIKING);
+        activity.addTrackPoint(tp);
+        activity.addTrackPoint(tp2);
+
+        activityDao.saveActivity(activity);
+
+        activityDao.deleteActivityById(activity.getId());
     }
 }

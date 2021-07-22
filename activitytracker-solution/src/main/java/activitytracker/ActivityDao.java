@@ -35,9 +35,9 @@ public class ActivityDao {
         return activities;
     }
 
-    public void updateActivity(long id, String desc){
+    public void updateActivity(long id, String desc) {
         EntityManager em = entityManagerFactory.createEntityManager();
-        Activity activity = em.find(Activity.class,id);
+        Activity activity = em.find(Activity.class, id);
         em.getTransaction().begin();
         activity.setDesc(desc);
         em.getTransaction().commit();
@@ -45,12 +45,42 @@ public class ActivityDao {
         em.close();
     }
 
-    public Activity findActivityByIdWithLabels(long id){
+    public Activity findActivityByIdWithLabels(long id) {
         EntityManager em = entityManagerFactory.createEntityManager();
-        Activity activity = em.createQuery("select a from Activity a join fetch a.labels where id = :id", Activity.class)
+        Activity activity = em.createQuery("select a from Activity a join fetch a.labels where a.id = :id", Activity.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        em.close();
+        return activity;
+    }
+
+    public void addTrackPoint(long id, TrackPoint trackPoint) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+
+        Activity activity = em.getReference(Activity.class, id);
+        trackPoint.setActivity(activity);
+        em.persist(trackPoint);
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public Activity findActivityByIdWithTrackPoints(long id) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        Activity activity = em.createQuery("select distinct a from Activity a left join fetch a.trackPoints where a.id = :id",Activity.class)
                 .setParameter("id",id)
                 .getSingleResult();
         em.close();
         return activity;
+    }
+
+    public void deleteActivityById(long id){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        Activity activity = em.find(Activity.class,id);
+        em.remove(activity);
+        em.getTransaction().commit();
+        em.close();
     }
 }

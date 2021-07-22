@@ -7,6 +7,7 @@ import org.hibernate.annotations.Target;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -43,13 +44,18 @@ public class Activity {
     @Column(name = "label")
     private List<String> labels;
 
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, mappedBy = "activity")
+//    @OrderBy("time")
+    @OrderColumn(name = "pos")
+    private List<TrackPoint> trackPoints;
+
     @PrePersist
     public void persistTime() {
         createdAt = LocalDateTime.now();
     }
 
     @PreUpdate
-    public void updateTime(){
+    public void updateTime() {
         updatedAt = LocalDateTime.now();
     }
 
@@ -57,5 +63,13 @@ public class Activity {
         this.startTime = startTime;
         this.desc = desc;
         this.type = type;
+    }
+
+    public void addTrackPoint(TrackPoint trackPoint){
+        if(trackPoints == null){
+            trackPoints = new ArrayList<>();
+        }
+        trackPoints.add(trackPoint);
+        trackPoint.setActivity(this);
     }
 }
