@@ -22,8 +22,8 @@ public class ActivityServiceIT {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("pu");
         activityDao = new ActivityDao(factory);
 
-        Activity activity1 = new Activity(LocalDateTime.now(), "Biking in the rain", ActivityType.BIKING);
-        Activity activity2 = new Activity(LocalDateTime.now(), "Hiking in the rain", ActivityType.HIKING);
+        Activity activity1 = new Activity(LocalDateTime.of(2021,1,2,10,50), "Biking in the rain", ActivityType.BIKING);
+        Activity activity2 = new Activity(LocalDateTime.of(2021,2,2,10,50), "Hiking in the rain", ActivityType.HIKING);
 
         activityDao.saveActivity(activity1);
         activityDao.saveActivity(activity2);
@@ -111,5 +111,35 @@ public class ActivityServiceIT {
         activityDao.saveActivity(activity);
 
         activityDao.deleteActivityById(activity.getId());
+    }
+
+    @Test
+    void testFindActivityByDescription(){
+        Activity result = activityDao.findActivityByDescription("Biking in the rain");
+
+        assertEquals(ActivityType.BIKING,result.getType());
+    }
+
+    @Test
+    void testGetCoordinates(){
+        TrackPoint tp = new TrackPoint(LocalDate.of(2021, 2, 2), 15, 15);
+        TrackPoint tp2 = new TrackPoint(LocalDate.of(2021, 1, 2), 10, 15);
+        TrackPoint tp3 = new TrackPoint(LocalDate.of(2021, 1, 5), 18, 15);
+
+        Activity activity = new Activity(LocalDateTime.of(2021,6,10,10,50), "Biking in the rain", ActivityType.BIKING);
+        activity.addTrackPoint(tp);
+        activity.addTrackPoint(tp2);
+        activity.addTrackPoint(tp3);
+
+        activityDao.saveActivity(activity);
+
+        List<Coordinate> result = activityDao.findTrackPointCoordinatesByDate(LocalDateTime.of(2021,6,5,10,10),0,2);
+
+        System.out.println(result);
+
+        assertThat(result)
+                .hasSize(2)
+                .extracting(Coordinate::getLat)
+                .contains(15D,10D);
     }
 }

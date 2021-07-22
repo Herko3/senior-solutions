@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @Table(name = "track_points")
+@NamedQuery(name = "getCoordinates", query = "select new activitytracker.Coordinate(t.lat,t.lon) from TrackPoint t where t.activity.startTime > :time order by t.pos")
 public class TrackPoint {
 
     @Id

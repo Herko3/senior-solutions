@@ -2,6 +2,10 @@ package activitytracker;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ActivityDao {
@@ -82,5 +86,32 @@ public class ActivityDao {
         em.remove(activity);
         em.getTransaction().commit();
         em.close();
+    }
+
+    public Activity findActivityByDescription(String description){
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        CriteriaBuilder cb = entityManagerFactory.getCriteriaBuilder();
+        CriteriaQuery<Activity> c = cb.createQuery(Activity.class);
+        Root<Activity> act = c.from(Activity.class);
+
+        c.select(act).where(cb.equal(act.get("desc"), description));
+        Activity activity = em.createQuery(c).getSingleResult();
+        em.close();
+
+        return activity;
+    }
+
+    public List<Coordinate> findTrackPointCoordinatesByDate(LocalDateTime afterThis, int start, int max){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        List<Coordinate> coordinates = em.createNamedQuery("getCoordinates",Coordinate.class)
+                .setParameter("time", afterThis)
+                .setFirstResult(start)
+                .setMaxResults(max)
+                .getResultList();
+
+        em.close();
+
+        return coordinates;
     }
 }
