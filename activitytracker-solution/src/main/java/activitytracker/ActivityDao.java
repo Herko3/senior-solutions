@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ActivityDao {
 
-    private EntityManagerFactory entityManagerFactory;
+    private final EntityManagerFactory entityManagerFactory;
 
     public ActivityDao(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
@@ -113,5 +113,13 @@ public class ActivityDao {
         em.close();
 
         return coordinates;
+    }
+
+    public List<Object[]> findTrackPointCountByActivity(){
+        EntityManager em = entityManagerFactory.createEntityManager();
+        List<Object[]> data = em.createQuery("select a.desc, SIZE(a.trackPoints) from Activity a order by a.desc")
+                .getResultList();
+        em.close();
+        return data;
     }
 }

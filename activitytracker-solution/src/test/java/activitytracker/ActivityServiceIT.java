@@ -142,4 +142,23 @@ public class ActivityServiceIT {
                 .extracting(Coordinate::getLat)
                 .contains(15D,10D);
     }
+
+    @Test
+    void testTrackPointsCountByActivity(){
+        TrackPoint tp = new TrackPoint(LocalDate.of(2021, 2, 2), 15, 15);
+        TrackPoint tp2 = new TrackPoint(LocalDate.of(2021, 1, 2), 10, 15);
+
+        Activity activity = new Activity(LocalDateTime.now(), "Cycling in the rain", ActivityType.BIKING);
+        activity.addTrackPoint(tp);
+        activity.addTrackPoint(tp2);
+
+        activityDao.saveActivity(activity);
+
+        List<Object[]> result = activityDao.findTrackPointCountByActivity();
+
+        assertEquals(3,result.size());
+        assertEquals(2,result.get(1)[1]);
+        assertEquals("Biking in the rain",result.get(0)[0]);
+    }
+
 }
