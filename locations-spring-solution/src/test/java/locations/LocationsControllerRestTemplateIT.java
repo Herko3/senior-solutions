@@ -8,6 +8,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.jdbc.Sql;
 import org.zalando.problem.Problem;
 
 import java.util.List;
@@ -17,17 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Sql(statements = "delete from locations")
 public class LocationsControllerRestTemplateIT {
 
     @Autowired
     TestRestTemplate template;
 
-    @Autowired
-    LocationsService service;
-
     @Test
     void testGetLocations() {
-        service.deleteAllLocations();
 
         LocationDto locationDto =
                 template.postForObject("/api/locations", new CreateLocationCommand("Eindhoven", 51.4537, 5.4702), LocationDto.class);
@@ -50,7 +48,6 @@ public class LocationsControllerRestTemplateIT {
 
     @Test
     void testFindLocationById() {
-        service.deleteAllLocations();
 
         template.postForObject("/api/locations", new CreateLocationCommand("London", 51.5368, -0.1308), LocationDto.class);
 
@@ -62,12 +59,11 @@ public class LocationsControllerRestTemplateIT {
 
     @Test
     void testUpdateLocation() {
-        service.deleteAllLocations();
 
-        template.postForObject("/api/locations", new CreateLocationCommand("London", 51.5368, -0.1308), LocationDto.class);
+        LocationDto post = template.postForObject("/api/locations", new CreateLocationCommand("London", 51.5368, -0.1308), LocationDto.class);
 
-        template.put("/api/locations/1", new UpdateLocationCommand("Budapest", 70, 150));
-        LocationDto result = template.getForObject("/api/locations/1", LocationDto.class);
+        template.put("/api/locations/" + post.getId(), new UpdateLocationCommand("Budapest", 70, 150));
+        LocationDto result = template.getForObject("/api/locations/" + post.getId(), LocationDto.class);
 
         assertEquals(150, result.getLon());
 
@@ -75,8 +71,7 @@ public class LocationsControllerRestTemplateIT {
 
     @Test
     void testDelete() {
-        service.deleteAllLocations();
-        template.postForObject("/api/locations", new CreateLocationCommand("Eindhoven", 51.4537, 5.4702), LocationDto.class);
+        LocationDto toDelete = template.postForObject("/api/locations", new CreateLocationCommand("Eindhoven", 51.4537, 5.4702), LocationDto.class);
         template.postForObject("/api/locations", new CreateLocationCommand("London", 51.5368, -0.1308), LocationDto.class);
 
         List<LocationDto> locations = template.exchange("/api/locations",
@@ -91,7 +86,7 @@ public class LocationsControllerRestTemplateIT {
                 .extracting(LocationDto::getName)
                 .containsExactly("Eindhoven", "London");
 
-        template.delete("/api/locations/1");
+        template.delete("/api/locations/" + toDelete.getId());
 
         List<LocationDto> afterDelete = template.exchange("/api/locations",
                 HttpMethod.GET,
@@ -112,7 +107,7 @@ public class LocationsControllerRestTemplateIT {
         ResponseEntity<Problem> problem =
                 template.postForEntity("/api/locations", new UpdateLocationCommand("Budapest", 150, 150), Problem.class);
 
-        assertEquals(HttpStatus.BAD_REQUEST,problem.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, problem.getStatusCode());
     }
 
     @Test
@@ -121,7 +116,7 @@ public class LocationsControllerRestTemplateIT {
         ResponseEntity<Problem> problem =
                 template.postForEntity("/api/locations", new UpdateLocationCommand("Budapest", 70, 200), Problem.class);
 
-        assertEquals(HttpStatus.BAD_REQUEST,problem.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, problem.getStatusCode());
     }
 
     @Test
@@ -130,13 +125,13 @@ public class LocationsControllerRestTemplateIT {
         ResponseEntity<Problem> problem =
                 template.postForEntity("/api/locations", new UpdateLocationCommand("", 70, 150), Problem.class);
 
-        assertEquals(HttpStatus.BAD_REQUEST,problem.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, problem.getStatusCode());
     }
 
     @Test
-    void test(){
-        ResponseEntity<Problem> problem = template.getForEntity("/api/locations/15",Problem.class);
+    void test() {
+        ResponseEntity<Problem> problem = template.getForEntity("/api/locations/15", Problem.class);
 
-        assertEquals(HttpStatus.NOT_FOUND,problem.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, problem.getStatusCode());
     }
 }
