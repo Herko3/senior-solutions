@@ -12,7 +12,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "Coppenhagen", "lat": 55.6998, "lon": 12.5477
+  "name": "Copenhagen", "lat": 55.6998, "lon": 12.5477
 }
 
 ### Validation
