@@ -1,8 +1,8 @@
 # Bónusz feladatok
 
 * [ ] Oltás
-* [ ] Minastirith - létező kódhoz kell unitteszteket írni
-* [ ] Matematikusok (validáció)
+* [X] Minastirith - létező kódhoz kell unitteszteket írni
+* [X] Matematikusok (validáció)
 * [ ] Terápia
 * [ ] Bank
 * [ ] Fighter game

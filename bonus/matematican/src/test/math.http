@@ -1,0 +1,72 @@
+###
+
+GET http://localhost:8080/api/mathematicians
+Accept: application/json
+
+### valid
+POST http://localhost:8080/api/mathematicians
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "favouriteTopics": [
+    "topic1",
+    "topic2"
+  ],
+  "birthDate": "2020-10-10",
+  "favouritePrim": 2
+}
+
+### Invalid name
+POST http://localhost:8080/api/mathematicians
+Content-Type: application/json
+
+{
+  "name": "",
+  "favouriteTopics": [
+    "topic1",
+    "topic2"
+  ],
+  "birthDate": "2020-10-10",
+  "favouritePrim": 2
+}
+
+### Invalid topics
+POST http://localhost:8080/api/mathematicians
+Content-Type: application/json
+
+{
+  "name": "sad",
+  "favouriteTopics": [],
+  "birthDate": "2020-10-10",
+  "favouritePrim": 2
+}
+
+### Invalid bday
+POST http://localhost:8080/api/mathematicians
+Content-Type: application/json
+
+{
+  "name": "asd",
+  "favouriteTopics": [
+    "topic1",
+    "topic2"
+  ],
+  "birthDate": "2022-10-10",
+  "favouritePrim": 2
+}
+
+### bad prime
+POST http://localhost:8080/api/mathematicians
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "favouriteTopics": [
+    "topic1",
+    "topic2"
+  ],
+  "birthDate": "2020-10-10",
+  "favouritePrim": 15
+}
+
