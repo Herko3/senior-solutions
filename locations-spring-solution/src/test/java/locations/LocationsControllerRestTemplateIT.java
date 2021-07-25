@@ -49,9 +49,9 @@ public class LocationsControllerRestTemplateIT {
     @Test
     void testFindLocationById() {
 
-        template.postForObject("/api/locations", new CreateLocationCommand("London", 51.5368, -0.1308), LocationDto.class);
+        LocationDto post = template.postForObject("/api/locations", new CreateLocationCommand("London", 51.5368, -0.1308), LocationDto.class);
 
-        LocationDto result = template.getForObject("/api/locations/1", LocationDto.class);
+        LocationDto result = template.getForObject("/api/locations/" + post.getId(), LocationDto.class);
 
         assertEquals(51.5368, result.getLat(), 0.0001);
 
