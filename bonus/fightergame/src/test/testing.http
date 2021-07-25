@@ -1,0 +1,32 @@
+###
+GET http://localhost:8080/api/fighters
+Accept: application/json
+
+###
+POST http://localhost:8080/api/fighters
+Content-Type: application/json
+
+{
+  "name": "Jack Doe",
+  "healthPoint": 100,
+  "damage": 15
+}
+
+###
+PUT http://localhost:8080/api/fighters/2
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "healthPoint": 120,
+  "damage": 20
+}
+
+###
+POST http://localhost:8080/api/matches
+Content-Type: application/json
+
+{
+  "firstId": 1,
+  "secondId": 2
+}

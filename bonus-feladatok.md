@@ -5,7 +5,7 @@
 * [X] Matematikusok (validáció)
 * [ ] Terápia
 * [X] Bank
-* [ ] Fighter game
+* [X] Fighter game
 * [ ] Kalózok
 * [ ] Légitársaság
 * [ ] Doggo
