@@ -1,1 +1,0 @@
-Írj teszteket a `minastirith` package-ben található osztályokra!
