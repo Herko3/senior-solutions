@@ -1,0 +1,44 @@
+###
+GET http://localhost:8080/api/accounts
+Accept: application/json
+
+###
+POST http://localhost:8080/api/accounts
+Content-Type: application/json
+
+{
+  "owner": "John Doe"
+}
+
+###
+PUT http://localhost:8080/api/accounts/2
+Content-Type: application/json
+
+{
+  "owner": "Jack Doe"
+}
+
+###
+DELETE http://localhost:8080/api/accounts/2
+Content-Type: application/json
+
+###
+POST http://localhost:8080/api/accounts/2
+Content-Type: application/json
+
+{
+  "moneyFlow": 100,
+  "otherAccountNumber": "10000001"
+}
+
+###
+POST http://localhost:8080/api/accounts/2
+Content-Type: application/json
+
+{
+  "moneyFlow": 300
+}
+
+###
+GET http://localhost:8080/api/accounts/1/transfer
+Accept: application/json

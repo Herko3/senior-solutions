@@ -4,7 +4,7 @@
 * [X] Minastirith - létező kódhoz kell unitteszteket írni
 * [X] Matematikusok (validáció)
 * [ ] Terápia
-* [ ] Bank
+* [X] Bank
 * [ ] Fighter game
 * [ ] Kalózok
 * [ ] Légitársaság
