@@ -20,7 +20,7 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 * [X] REST webszolgáltatások POST és DELETE művelet
 * [X] Státuszkódok és hibakezelés
 * [X] Integrációs tesztelés
-* [ ] Swagger UI
+* [X] Swagger UI
 * [ ] Tesztelés Rest Assured használatával
 * [ ] Rest Assured séma validáció
 * [ ] Content Negotiation

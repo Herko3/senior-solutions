@@ -1,5 +1,8 @@
 package locations;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/locations")
+@Tag(name = "Operations on locations")
 public class LocationsController {
 
     private LocationsService service;
@@ -24,6 +28,7 @@ public class LocationsController {
     }
 
     @GetMapping
+    @Operation(summary = "list all locations")
     public List<LocationDto> getLocations(@RequestParam Optional<String> prefix,
                                           @RequestParam Optional<Double> minLat,
                                           @RequestParam Optional<Double> minLon,
@@ -34,6 +39,8 @@ public class LocationsController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "gives back an exact location")
+    @ApiResponse(responseCode = "404", description = "Location not found")
     public LocationDto findLocationById(@PathVariable("id") long id) {
         return service.findLocationById(id);
 
@@ -41,16 +48,22 @@ public class LocationsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Create new location")
+    @ApiResponse(responseCode = "201", description = "Location is created")
     public LocationDto createLocation(@Valid @RequestBody CreateLocationCommand command) {
         return service.createLocation(command);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "changes the value of an existing location")
+    @ApiResponse(responseCode = "404", description = "Location not found")
     public LocationDto updateLocation(@PathVariable("id") long id,@Valid @RequestBody UpdateLocationCommand command) {
         return service.updateLocation(id, command);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "deletes an exact location")
+    @ApiResponse(responseCode = "404", description = "Location not found")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteLocation(@PathVariable("id") long id) {
         service.deleteLocation(id);
