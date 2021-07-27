@@ -3,6 +3,7 @@ package movies;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -29,10 +30,11 @@ public class MovieService {
         return mapper.map(movie,MovieDto.class);
     }
 
+    @Transactional
     public MovieDto addRating(long id, CreateRatingCommand command) {
-        Movie movie = repository.getById(id);
+        Movie movie = repository.findById(id).orElseThrow(()->new MovieNotFoundException(id));
         movie.addRating(command.getRating());
-        repository.save(movie);
+
         return mapper.map(movie,MovieDto.class);
     }
 }
