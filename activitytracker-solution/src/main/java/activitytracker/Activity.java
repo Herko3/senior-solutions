@@ -49,6 +49,9 @@ public class Activity {
     @OrderColumn(name = "pos")
     private List<TrackPoint> trackPoints;
 
+    @ManyToMany(mappedBy = "activities")
+    private List<Area> areas = new ArrayList<>();
+
     @PrePersist
     public void persistTime() {
         createdAt = LocalDateTime.now();
