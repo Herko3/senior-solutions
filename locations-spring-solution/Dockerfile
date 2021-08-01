@@ -10,6 +10,11 @@ RUN java -Djarmode=layertools -jar locations.jar extract
 
 FROM adoptopenjdk:16-jre-hotspot
 WORKDIR application
+RUN apt update \
+     && apt-get install wget \
+     && apt-get install -y netcat \
+     && wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh \
+     && chmod +x ./wait-for-it.sh
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
 COPY --from=builder application/snapshot-dependencies/ ./
